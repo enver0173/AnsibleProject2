@@ -1,0 +1,8 @@
+---
+  - name: Test Play
+    hosts: all
+    gather_facts: "{{ facts }}"
+    tasks:
+      - include: ../tasks/ping.yml
+    vars_files:
+      - ../variables/main_vars.yml

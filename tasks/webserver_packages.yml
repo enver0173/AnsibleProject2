@@ -1,0 +1,5 @@
+- name: Install Packages Webserver
+  when: ansible_facts['hostname'] == "webserver"
+  yum:
+    name: "{{ app_packages }}"
+    state: latest
