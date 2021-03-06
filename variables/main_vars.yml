@@ -4,7 +4,10 @@ bootstrap_packages:
   - curl
   - wget
 app_packages:
+  - epel-release
   - httpd
   - mysql
+php_package:
+  - php72
 database_packages:
   - mariadb-server

@@ -3,3 +3,34 @@
   yum:
     name: "{{ app_packages }}"
     state: latest
+
+- name: Install Remi Repo
+  when: ansible_facts['hostname'] == "webserver" 
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
+- name: Install yum-utils
+  when: ansible_facts['hostname'] == "webserver"
+  yum: 
+    name: yum-utils
+    state: latest
+
+- name: Enable remi-php72Repository
+  when: ansible_facts['hostname'] == "webserver"
+  yum_repository:
+    name: remi-php72
+    enabled: yes
+    description: Extra Packages for Enterprise Linux 7 - $basearch
+    metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+- name: Update Repos Webserver
+  when: ansible_facts['hostname'] == "webserver"
+  yum:
+    name: "*"
+    state: latest
+- name: Install PHP 7.2
+  when: ansible_facts['hostname'] == "webserver"
+  yum:
+    name: "{{ php_package }}"
+    state: present
+    enablerepo: "remi-*,epel,base"
