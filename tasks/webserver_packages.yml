@@ -34,3 +34,14 @@
     name: "{{ php_package }}"
     state: present
     enablerepo: "remi-*,epel,base"
+- name: Download Wordpress
+  when: ansible_facts['hostname'] == "webserver"
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /tmp/wordpress.tar.gz
+- name: Unarchive a file that is already on the remote machine
+  when: ansible_facts['hostname'] == "webserver"
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /tmp/
+    remote_src: yes
