@@ -7,7 +7,22 @@ app_packages:
   - epel-release
   - httpd
   - mysql
-php_package:
+php_packages:
   - php72
+  - php72-php-fpm
+  - php72-php-fpm
+  - php72-php-gd
+  - php72-php-json
+  - php72-php-mbstring
+  - php72-php-mysqlnd
+  - php72-php-xml
+  - php72-php-xmlrpc
+  - php72-php-opcache
+  - php-common
+  - php-mysql
+  - php-gd
+  - php-xml
+  - php-mbstring
+  - php-mcrypt
 database_packages:
   - mariadb-server

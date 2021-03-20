@@ -16,24 +16,33 @@
     name: yum-utils
     state: latest
 
-- name: Enable remi-php72Repository
+- name: Enable remi-php73Repository
   when: ansible_facts['hostname'] == "webserver"
   yum_repository:
-    name: remi-php72
+    name: remi-php73
     enabled: yes
     description: Extra Packages for Enterprise Linux 7 - $basearch
-    metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+    mirrorlist: 
+Ahmad Ali  5:20 PM
+mirrorlist:
+http://cdn.remirepo.net/enterprise/7/php73/mirror
 - name: Update Repos Webserver
   when: ansible_facts['hostname'] == "webserver"
   yum:
     name: "*"
     state: latest
-- name: Install PHP 7.2
+- name: Install PHP 7.3
   when: ansible_facts['hostname'] == "webserver"
   yum:
-    name: "{{ php_package }}"
+    name: "{{ php_packages }}"
     state: present
     enablerepo: "remi-*,epel,base"
+- name: creating soft link
+  when: ansible_facts['hostname'] == "webserver"
+  file:
+    src: /opt/remi/php72/root/usr/bin/php
+    dest: /usr/bin/php
+    state: link
 - name: Download Wordpress
   when: ansible_facts['hostname'] == "webserver"
   get_url:
